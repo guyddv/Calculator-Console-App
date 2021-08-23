@@ -1,5 +1,11 @@
 ﻿using System;
 
+/* 
+   A calculator console application.  The application will take integers and decimal numbers
+   input by the user, check if the entry was valid, and perform addition, subraction, multiplication,
+   and division, based on the users input.
+*/
+
 namespace Calculator_Console_App
 {
     class Program
@@ -10,6 +16,8 @@ namespace Calculator_Console_App
             bool validSecondNumber = false;
             bool validOperation = false;
 
+            // Main loop for the entire application.
+
             while (validFirstNumber == false && validSecondNumber == false && validOperation == false)
             {                
                 int firstNumberInt = 0;
@@ -17,10 +25,12 @@ namespace Calculator_Console_App
                 int secondNumberInt = 0;
                 decimal secondNumberDec = 0.0m;                
 
+                // Checks the validity of the first number input.
+
                 Console.WriteLine("Please enter the first number: ");
                 string firstNumberEntered = Console.ReadLine();
                 bool isFirstNumberInt = int.TryParse(firstNumberEntered, out firstNumberInt);
-                //bool isFirstNumberDec = decimal.TryParse(firstNumberEntered, out firstNumberDec);
+             
                 if (isFirstNumberInt == true)
                 {
                     validFirstNumber = true;
@@ -38,6 +48,8 @@ namespace Calculator_Console_App
                         break;
                     }
                 }
+
+                // Checks the validity of the second number input.
 
                 Console.WriteLine("Please enter the second number: ");
                 string secondNumberEntered = Console.ReadLine();
@@ -60,6 +72,8 @@ namespace Calculator_Console_App
                         break;
                     }
                 }               
+
+                // Checks if the user enters a valid arithmetic operator, and performs that function.
 
                 Console.WriteLine("Please enter the operation you would like to perform (+, -, *, /): ");
                 string operationEntered = Console.ReadLine();
