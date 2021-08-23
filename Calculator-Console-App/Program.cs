@@ -20,40 +20,46 @@ namespace Calculator_Console_App
                 Console.WriteLine("Please enter the first number: ");
                 string firstNumberEntered = Console.ReadLine();
                 bool isFirstNumberInt = int.TryParse(firstNumberEntered, out firstNumberInt);
-                bool isFirstNumberDec = decimal.TryParse(firstNumberEntered, out firstNumberDec);
-                //if (Convert.ToInt32(firstNumberEntered) is int || Convert.ToDecimal(firstNumberEntered) is decimal)
+                //bool isFirstNumberDec = decimal.TryParse(firstNumberEntered, out firstNumberDec);
                 if (isFirstNumberInt == true)
                 {
                     validFirstNumber = true;
                 }
-                else if (isFirstNumberDec == true)
+                else
                 {
-                    validFirstNumber = true;
-                }
-                else 
-                { 
-                    Console.WriteLine("Please enter a valid number.");
-                    break;
+                    bool isFirstNumberDec = decimal.TryParse(firstNumberEntered, out firstNumberDec);
+                    if (isFirstNumberDec == true)
+                    {
+                        validFirstNumber = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid number.");
+                        break;
+                    }
                 }
 
                 Console.WriteLine("Please enter the second number: ");
                 string secondNumberEntered = Console.ReadLine();
                 bool isSecondNumberInt = int.TryParse(secondNumberEntered, out secondNumberInt);
-                bool isSecondNumberDec = decimal.TryParse(secondNumberEntered, out secondNumberDec);
-
+                
                 if (isSecondNumberInt == true)
-                {
-                    validSecondNumber = true;
-                }
-                else if (isSecondNumberDec == true)
                 {
                     validSecondNumber = true;
                 }
                 else
                 {
-                    Console.WriteLine("Please enter a valid number.");
-                    break;
-                }
+                    bool isSecondNumberDec = decimal.TryParse(secondNumberEntered, out secondNumberDec);
+                    if (isSecondNumberDec == true)
+                    {
+                        validSecondNumber = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid number.");
+                        break;
+                    }
+                }               
 
                 Console.WriteLine("Please enter the operation you would like to perform (+, -, *, /): ");
                 string operationEntered = Console.ReadLine();
@@ -64,52 +70,44 @@ namespace Calculator_Console_App
                 switch (operationEntered)
                 {
                     case "+":
-                        if (firstNumberInt != 0 && secondNumberInt != 0)
+                        if (isFirstNumberInt && isSecondNumberInt == true)
                         {
                             resultInt = firstNumberInt + secondNumberInt;
                             Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultInt}");
                         }
                         else
                         {
-                            resultDec = firstNumberInt + firstNumberDec + secondNumberInt + secondNumberDec;
+                            resultDec = (firstNumberDec + firstNumberInt) + (secondNumberDec + secondNumberInt);
                             Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
                         }
                         break;
                     case "-":
-                        if (firstNumberInt != 0)
+                        if (isFirstNumberInt && isSecondNumberInt == true)
                         {
                             resultInt = firstNumberInt - secondNumberInt;
                             Console.WriteLine($"{firstNumberEntered} - {secondNumberEntered} = {resultInt}");
                         }
                         else
                         {
-                            resultDec = firstNumberDec - secondNumberDec;
-                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
+                            resultDec = (firstNumberDec + firstNumberInt) - (secondNumberDec + secondNumberInt);
+                            Console.WriteLine($"{firstNumberEntered} - {secondNumberEntered} = {resultDec}");
                         }
                         break;
                     case "*":
-                        if (firstNumberInt != 0)
+                        if (isFirstNumberInt && isSecondNumberInt == true)
                         {
                             resultInt = firstNumberInt * secondNumberInt;
                             Console.WriteLine($"{firstNumberEntered} * {secondNumberEntered} = {resultInt}");
                         }
                         else
                         {
-                            resultDec = firstNumberDec * secondNumberDec;
-                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
+                            resultDec = (firstNumberDec + firstNumberInt) * (secondNumberDec + secondNumberInt);
+                            Console.WriteLine($"{firstNumberEntered} * {secondNumberEntered} = {resultDec}");
                         }
                         break;
                     case "/":
-                        if (firstNumberInt != 0)
-                        {
-                            resultInt = firstNumberInt / secondNumberInt;
-                            Console.WriteLine($"{firstNumberEntered} / {secondNumberEntered} = {resultInt}");
-                        }
-                        else
-                        {
-                            resultDec = firstNumberDec / secondNumberDec;
-                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
-                        }
+                        resultDec = (firstNumberDec + firstNumberInt) / (secondNumberDec + secondNumberInt);
+                        Console.WriteLine($"{firstNumberEntered} / {secondNumberEntered} = {resultDec}");
                         break;
                     default:
                         Console.WriteLine("Please enter +, -, * or /");
