@@ -6,56 +6,118 @@ namespace Calculator_Console_App
     {
         static void Main(string[] args)
         {
-            int firstNumber = 0;
-            int secondNumber = 0;
-            int result = 0;
+            bool validFirstNumber = false;
+            bool validSecondNumber = false;
+            bool validOperation = false;
 
-            Console.WriteLine("Please enter the first number: ");
-            string firstNumberEntered = Console.ReadLine();
-            if (Convert.ToInt32(firstNumberEntered) is int)
-            {
-                firstNumber = Convert.ToInt32(firstNumberEntered);
-            }
-            else
-            { 
-                Console.WriteLine("Please enter a valid integer number.");
-            }
+            while (validFirstNumber == false && validSecondNumber == false && validOperation == false)
+            {                
+                int firstNumberInt = 0;
+                decimal firstNumberDec = 0.0m;
+                int secondNumberInt = 0;
+                decimal secondNumberDec = 0.0m;                
 
-            Console.WriteLine("Please enter the second number: ");
-            string secondNumberEntered = Console.ReadLine();
-            if (Convert.ToInt32(secondNumberEntered) is int)
-            {
-                secondNumber = Convert.ToInt32(secondNumberEntered);
-            }
-            else
-            {
-                Console.WriteLine("Please enter a valid integer number.");
-            }
+                Console.WriteLine("Please enter the first number: ");
+                string firstNumberEntered = Console.ReadLine();
+                bool isFirstNumberInt = int.TryParse(firstNumberEntered, out firstNumberInt);
+                bool isFirstNumberDec = decimal.TryParse(firstNumberEntered, out firstNumberDec);
+                //if (Convert.ToInt32(firstNumberEntered) is int || Convert.ToDecimal(firstNumberEntered) is decimal)
+                if (isFirstNumberInt == true)
+                {
+                    validFirstNumber = true;
+                }
+                else if (isFirstNumberDec == true)
+                {
+                    validFirstNumber = true;
+                }
+                else 
+                { 
+                    Console.WriteLine("Please enter a valid number.");
+                    break;
+                }
+
+                Console.WriteLine("Please enter the second number: ");
+                string secondNumberEntered = Console.ReadLine();
+                bool isSecondNumberInt = int.TryParse(secondNumberEntered, out secondNumberInt);
+                bool isSecondNumberDec = decimal.TryParse(secondNumberEntered, out secondNumberDec);
+
+                if (isSecondNumberInt == true)
+                {
+                    validSecondNumber = true;
+                }
+                else if (isSecondNumberDec == true)
+                {
+                    validSecondNumber = true;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid number.");
+                    break;
+                }
+
+                Console.WriteLine("Please enter the operation you would like to perform (+, -, *, /): ");
+                string operationEntered = Console.ReadLine();
+
+                int resultInt = 0;
+                decimal resultDec = 0.0m;
+
+                switch (operationEntered)
+                {
+                    case "+":
+                        if (firstNumberInt != 0 && secondNumberInt != 0)
+                        {
+                            resultInt = firstNumberInt + secondNumberInt;
+                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultInt}");
+                        }
+                        else
+                        {
+                            resultDec = firstNumberInt + firstNumberDec + secondNumberInt + secondNumberDec;
+                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
+                        }
+                        break;
+                    case "-":
+                        if (firstNumberInt != 0)
+                        {
+                            resultInt = firstNumberInt - secondNumberInt;
+                            Console.WriteLine($"{firstNumberEntered} - {secondNumberEntered} = {resultInt}");
+                        }
+                        else
+                        {
+                            resultDec = firstNumberDec - secondNumberDec;
+                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
+                        }
+                        break;
+                    case "*":
+                        if (firstNumberInt != 0)
+                        {
+                            resultInt = firstNumberInt * secondNumberInt;
+                            Console.WriteLine($"{firstNumberEntered} * {secondNumberEntered} = {resultInt}");
+                        }
+                        else
+                        {
+                            resultDec = firstNumberDec * secondNumberDec;
+                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
+                        }
+                        break;
+                    case "/":
+                        if (firstNumberInt != 0)
+                        {
+                            resultInt = firstNumberInt / secondNumberInt;
+                            Console.WriteLine($"{firstNumberEntered} / {secondNumberEntered} = {resultInt}");
+                        }
+                        else
+                        {
+                            resultDec = firstNumberDec / secondNumberDec;
+                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Please enter +, -, * or /");
+                        break;
+                }
+            }          
             
-            Console.WriteLine("Please enter the operation you would like to perform (+, -, *, /): ");
-            string operationEntered = Console.ReadLine();
-
-            switch (operationEntered) {
-                case "+":
-                    result = firstNumber + secondNumber;
-                    Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {result}");
-                    break;
-                case "-":
-                    result = firstNumber - secondNumber;
-                    Console.WriteLine($"{firstNumber} - {secondNumber} = {result}");
-                    break;
-                case "*":
-                    result = firstNumber * secondNumber;
-                    Console.WriteLine($"{firstNumber} * {secondNumber} = {result}");
-                    break;
-                case "/":
-                    result = firstNumber / secondNumber;
-                    Console.WriteLine($"{firstNumber} / {secondNumber} = {result}");
-                    break;
-                default:
-                    Console.WriteLine("Please enter +, -, * or /");
-                    break;
-            }
+                        
         }
     }
 }
