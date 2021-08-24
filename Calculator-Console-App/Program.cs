@@ -2,7 +2,7 @@
 
 /* 
    A calculator console application.  The application will take integers and decimal numbers
-   input by the user, check if the entry was valid, and perform addition, subraction, multiplication,
+   input by the user, check if the entry was valid, and perform addition, subtraction, multiplication,
    and division, based on the users input.
 */
 
@@ -12,66 +12,53 @@ namespace Calculator_Console_App
     {
         static void Main(string[] args)
         {
-            bool validFirstNumber = false;
-            bool validSecondNumber = false;
-            bool validOperation = false;
+            //bool validFirstNumber = false;
+            //bool validSecondNumber = false;
+            //bool validOperation = false;
+            bool runAgain = true;
+            bool validNumber = true;
+
 
             // Main loop for the entire application.
 
-            while (validFirstNumber == false && validSecondNumber == false && validOperation == false)
+            while (runAgain)
             {                
                 int firstNumberInt = 0;
-                decimal firstNumberDec = 0.0m;
                 int secondNumberInt = 0;
-                decimal secondNumberDec = 0.0m;                
 
                 // Checks the validity of the first number input.
 
-                Console.WriteLine("Please enter the first number: ");
-                string firstNumberEntered = Console.ReadLine();
-                bool isFirstNumberInt = int.TryParse(firstNumberEntered, out firstNumberInt);
-             
-                if (isFirstNumberInt == true)
+                do
                 {
-                    validFirstNumber = true;
-                }
-                else
-                {
-                    bool isFirstNumberDec = decimal.TryParse(firstNumberEntered, out firstNumberDec);
-                    if (isFirstNumberDec == true)
+                    Console.WriteLine("Please enter the first number: ");
+                    string firstNumberEntered = Console.ReadLine();
+                    bool isFirstNumberInt = int.TryParse(firstNumberEntered, out firstNumberInt);
+                    validNumber = true;
+
+                    if (!isFirstNumberInt)
                     {
-                        validFirstNumber = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please enter a valid number.");
-                        break;
+                        validNumber = false;
+                        Console.WriteLine("Please enter a valid integer.");
                     }
                 }
+                while (!validNumber);
 
                 // Checks the validity of the second number input.
 
-                Console.WriteLine("Please enter the second number: ");
-                string secondNumberEntered = Console.ReadLine();
-                bool isSecondNumberInt = int.TryParse(secondNumberEntered, out secondNumberInt);
-                
-                if (isSecondNumberInt == true)
+                do
                 {
-                    validSecondNumber = true;
-                }
-                else
-                {
-                    bool isSecondNumberDec = decimal.TryParse(secondNumberEntered, out secondNumberDec);
-                    if (isSecondNumberDec == true)
+                    Console.WriteLine("Please enter the second number: ");
+                    string secondNumberEntered = Console.ReadLine();
+                    bool isSecondNumberInt = int.TryParse(secondNumberEntered, out secondNumberInt);
+                    validNumber = true;
+
+                    if (!isSecondNumberInt)
                     {
-                        validSecondNumber = true;
-                    }
-                    else
-                    {
+                        validNumber = false;
                         Console.WriteLine("Please enter a valid number.");
-                        break;
                     }
-                }               
+                }
+                while (!validNumber);
 
                 // Checks if the user enters a valid arithmetic operator, and performs that function.
 
@@ -84,52 +71,37 @@ namespace Calculator_Console_App
                 switch (operationEntered)
                 {
                     case "+":
-                        if (isFirstNumberInt && isSecondNumberInt == true)
-                        {
-                            resultInt = firstNumberInt + secondNumberInt;
-                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultInt}");
-                        }
-                        else
-                        {
-                            resultDec = (firstNumberDec + firstNumberInt) + (secondNumberDec + secondNumberInt);
-                            Console.WriteLine($"{firstNumberEntered} + {secondNumberEntered} = {resultDec}");
-                        }
+                        resultInt = firstNumberInt + secondNumberInt;
+                        Console.WriteLine($"{firstNumberInt} + {secondNumberInt} = {resultInt}");
                         break;
                     case "-":
-                        if (isFirstNumberInt && isSecondNumberInt == true)
-                        {
-                            resultInt = firstNumberInt - secondNumberInt;
-                            Console.WriteLine($"{firstNumberEntered} - {secondNumberEntered} = {resultInt}");
-                        }
-                        else
-                        {
-                            resultDec = (firstNumberDec + firstNumberInt) - (secondNumberDec + secondNumberInt);
-                            Console.WriteLine($"{firstNumberEntered} - {secondNumberEntered} = {resultDec}");
-                        }
+                        resultInt = firstNumberInt - secondNumberInt;
+                        Console.WriteLine($"{firstNumberInt} - {secondNumberInt} = {resultInt}");
                         break;
                     case "*":
-                        if (isFirstNumberInt && isSecondNumberInt == true)
-                        {
-                            resultInt = firstNumberInt * secondNumberInt;
-                            Console.WriteLine($"{firstNumberEntered} * {secondNumberEntered} = {resultInt}");
-                        }
-                        else
-                        {
-                            resultDec = (firstNumberDec + firstNumberInt) * (secondNumberDec + secondNumberInt);
-                            Console.WriteLine($"{firstNumberEntered} * {secondNumberEntered} = {resultDec}");
-                        }
+                        resultInt = firstNumberInt * secondNumberInt;
+                        Console.WriteLine($"{firstNumberInt} * {secondNumberInt} = {resultInt}");
                         break;
                     case "/":
-                        resultDec = (firstNumberDec + firstNumberInt) / (secondNumberDec + secondNumberInt);
-                        Console.WriteLine($"{firstNumberEntered} / {secondNumberEntered} = {resultDec}");
+                        resultDec = firstNumberInt / secondNumberInt;
+                        Console.WriteLine($"{firstNumberInt} / {secondNumberInt} = {resultDec}");
                         break;
                     default:
                         Console.WriteLine("Please enter +, -, * or /");
                         break;
                 }
+
+                Console.WriteLine("Would you like to run the calculator again? (y/n)");
+                string runAgainAnswer = Console.ReadLine();
+                if (runAgainAnswer == "y")
+                {
+                    runAgain = true;
+                }
+                else
+                {
+                    runAgain = false;
+                }
             }          
-            
-                        
         }
     }
 }
