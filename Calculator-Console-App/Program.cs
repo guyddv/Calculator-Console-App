@@ -89,9 +89,6 @@ namespace Calculator_Console_App
                             Console.WriteLine($"{firstNumberInt} / {secondNumberInt} = {resultInt}");
                             break;
                         }
-                        resultInt = firstNumberInt / secondNumberInt;
-                        Console.WriteLine($"{firstNumberInt} / {secondNumberInt} = {resultInt}");
-                        break;
                     default:
                         Console.WriteLine("Please enter +, -, * or /");
                         break;
