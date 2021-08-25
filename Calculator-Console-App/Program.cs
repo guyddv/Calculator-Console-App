@@ -12,12 +12,8 @@ namespace Calculator_Console_App
     {
         static void Main(string[] args)
         {
-            //bool validFirstNumber = false;
-            //bool validSecondNumber = false;
-            //bool validOperation = false;
             bool runAgain = true;
             bool validNumber = true;
-
 
             // Main loop for the entire application.
 
@@ -55,7 +51,7 @@ namespace Calculator_Console_App
                     if (!isSecondNumberInt)
                     {
                         validNumber = false;
-                        Console.WriteLine("Please enter a valid number.");
+                        Console.WriteLine("Please enter a valid integer.");
                     }
                 }
                 while (!validNumber);
@@ -66,7 +62,6 @@ namespace Calculator_Console_App
                 string operationEntered = Console.ReadLine();
 
                 int resultInt = 0;
-                decimal resultDec = 0.0m;
 
                 switch (operationEntered)
                 {
@@ -83,8 +78,19 @@ namespace Calculator_Console_App
                         Console.WriteLine($"{firstNumberInt} * {secondNumberInt} = {resultInt}");
                         break;
                     case "/":
-                        resultDec = firstNumberInt / secondNumberInt;
-                        Console.WriteLine($"{firstNumberInt} / {secondNumberInt} = {resultDec}");
+                        if (secondNumberInt == 0)
+                        {
+                            Console.WriteLine("Divide by zero error!");
+                            break;
+                        }
+                        else
+                        {
+                            resultInt = firstNumberInt / secondNumberInt;
+                            Console.WriteLine($"{firstNumberInt} / {secondNumberInt} = {resultInt}");
+                            break;
+                        }
+                        resultInt = firstNumberInt / secondNumberInt;
+                        Console.WriteLine($"{firstNumberInt} / {secondNumberInt} = {resultInt}");
                         break;
                     default:
                         Console.WriteLine("Please enter +, -, * or /");
